@@ -1,0 +1,17 @@
+## Interface: 110007
+
+## Title: LibSimpleTester
+## Notes: A very simple tester for testing functions in game.
+## Version: @project-version@
+## Author: Hsiwei Chang
+## X-Category: Library
+
+## OptionalDeps: LibStub
+
+## LoadOnDemand: 1
+
+#@no-lib-strip@
+libs\LibStub\LibStub.lua
+#@end-no-lib-strip@
+
+LibSimpleTester\LibSimpleTester.lua

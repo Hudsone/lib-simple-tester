@@ -1,0 +1,6 @@
+externals:
+  libs/LibStub: https://repos.wowace.com/wow/libstub/trunk
+
+ignore:
+  - libs/LibStub/tests
+  - libs/LibStub/LibStub.toc
