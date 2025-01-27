@@ -14,4 +14,4 @@
 libs\LibStub\LibStub.lua
 #@end-no-lib-strip@
 
-LibSimpleTester\LibSimpleTester.lua
+src\LibSimpleTester.lua
