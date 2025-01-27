@@ -60,6 +60,21 @@ function lib:StartTest()
   tester:StartTest()
 end
 
+---Quickly creates a simple test command.
+---
+---The command would be `slash_command` provided and can be executed in game.
+---You can specify `[slash_command] [filter]` to filter the name to test.
+---@param slash_command string The slash command with slash, e.g., "/simpletester-test".
+---@param namespace string The namespace of this command. Choose an unique one that doesn't conflict with others.
+---@param test_list table<string, function> The test list with <testName, testFunction>
+function lib:CreateTestCommand(slash_command, namespace, test_list)
+  _G['SLASH_' .. namespace .. '1'] = slash_command
+  SlashCmdList[namespace] = function(filter)
+    self:PushTestsWithFilter(test_list, filter)
+    self:StartTest()
+  end
+end
+
 --
 -- Test cases
 --
@@ -83,15 +98,14 @@ end
 -- /simpletester-test
 --
 
-SLASH_SIMPLETESTER_TEST1 = '/simpletester-test'
-SlashCmdList['SIMPLETESTER_TEST'] = function(msg)
-  local test_list = {
+lib:CreateTestCommand(
+  '/simpletester-test',
+  'SIMPLETESTER_TEST',
+  {
     unitTest_Tester_ShouldReportTestResults =
         unitTest_Tester_ShouldReportTestResults,
   }
-  lib:PushTestsWithFilter(test_list, msg)
-  lib:StartTest()
-end
+)
 
 --
 -- Tester functions
@@ -153,7 +167,7 @@ function tester:FinalizeTest()
   local passed = 0
   for i, result in pairs(self.results) do
     print(string.format('%s: %s', result and sPassed or sFailed,
-                        self.tests[i].name))
+      self.tests[i].name))
     if result then passed = passed + 1 end
   end
   print(string.format('Total %d/%d tests passed.', passed, #self.tests))
