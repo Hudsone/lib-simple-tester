@@ -1,4 +1,4 @@
-## Interface: 110007
+## Interface: 120000
 
 ## Title: LibSimpleTester
 ## Notes: A very simple tester for testing functions in game.
